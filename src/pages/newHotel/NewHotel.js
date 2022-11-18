@@ -1,38 +1,17 @@
-import "./new.scss";
+import "./newHotel.scss";
 import Sidebar from "../../component/sidebar/Sidebar";
 import Navbar from "../../component/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
-import axios from "axios";
 
-const New = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
+const NewHotel = ({ inputs, title }) => {
+  const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   }
 
-  const handleClick = async (e) => {
-    e.preventDefault()
-    const data = new FormData()
-    data.append("file", file)
-    data.append("upload_preset", "upload");
-
-    try{
-      const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/dkl7omj02/image/upload", data);
-      const { url } = uploadRes.data;
-
-      const newUser = {
-        ...info,
-        img: url
-      };
-      await axios.post("/auth/register", newUser)
-    }catch(err){
-      console.log(err);
-    }
-  }
-console.log(info);
   return (
     <div className="new">
       <Sidebar />
@@ -45,8 +24,8 @@ console.log(info);
           <div className="left">
             <img
               src={
-                file
-                  ? URL.createObjectURL(file)
+                files
+                  ? URL.createObjectURL(files[0])
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
               alt=""
@@ -61,7 +40,8 @@ console.log(info);
                 <input
                   type="file"
                   id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
+                  multiple
+                  onChange={(e) => setFiles(e.target.files)}
                   style={{ display: "none" }}
                 />
               </div>
@@ -69,12 +49,10 @@ console.log(info);
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input onChange={handleChange} type={input.type} placeholder={input.placeholder}
-                  id={input.id}
-                  />
+                  <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
                 </div>
               ))}
-              <button onClick={handleClick}>Send</button>
+              <button>Send</button>
             </form>
           </div>
         </div>
@@ -83,4 +61,4 @@ console.log(info);
   );
 };
 
-export default New;
+export default NewHotel;
