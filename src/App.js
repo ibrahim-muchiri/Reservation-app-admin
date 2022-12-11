@@ -3,6 +3,7 @@ import Login from "./pages/Login/Login";
 import List from "./pages/List/List";
 import Single from "./pages/Single/Single";
 import New from "./pages/New/New";
+import NewHotel from "./pages/newHotel/NewHotel";
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import { hotelInputs, userInputs } from "./FormSource";
 import "./style/dark.scss";
@@ -10,6 +11,7 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/DarkModeContext";
 import { AuthContext } from "./context/AuthContext";
 import { hotelColumns, userColumns } from "./Datatablesource";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -70,7 +72,7 @@ function App() {
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <New inputs={hotelInputs} title="Add New Product" />
+                    <NewHotel />
                   </ProtectedRoute>
                   }
               />

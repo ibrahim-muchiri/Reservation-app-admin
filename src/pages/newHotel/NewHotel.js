@@ -4,7 +4,7 @@ import Navbar from "../../component/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 
-const NewHotel = ({ inputs, title }) => {
+const NewHotel = ({ hotelInputs }) => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
 
@@ -18,7 +18,7 @@ const NewHotel = ({ inputs, title }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>{title}</h1>
+          <h1>Add New Product</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -46,7 +46,7 @@ const NewHotel = ({ inputs, title }) => {
                 />
               </div>
 
-              {inputs.map((input) => (
+              {hotelInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />

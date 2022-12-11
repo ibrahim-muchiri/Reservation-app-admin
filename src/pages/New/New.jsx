@@ -6,8 +6,8 @@ import { useState } from "react";
 import axios from "axios";
 
 const New = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
-  const [info, setInfo] = useState({});
+  const [file, setFile] = useState("");  
+  const [info, setInfo] = useState({}); //Storage of files
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -15,6 +15,7 @@ const New = ({ inputs, title }) => {
 
   const handleClick = async (e) => {
     e.preventDefault()
+    //Deals with images
     const data = new FormData()
     data.append("file", file)
     data.append("upload_preset", "upload");
@@ -32,7 +33,7 @@ const New = ({ inputs, title }) => {
       console.log(err);
     }
   }
-console.log(info);
+// console.log(info);
   return (
     <div className="new">
       <Sidebar />
